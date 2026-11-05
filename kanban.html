@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brigade Kanban Board User Guide – Complete Documentation</title>
+    <!-- Google Fonts: Urbanist & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Urbanist:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff5a36;
+            --primary-hover: #e04826;
+            --ink: #111827;
+            --text-main: #374151;
+            --text-muted: #6b7280;
+            --bg-body: #ffffff;
+            --bg-sidebar: #f9fafb;
+            --bg-code: #f3f4f6;
+            --border-color: #e5e7eb;
+            --radius: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Top Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 1000;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-box {
+            background-color: var(--primary);
+            color: white;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+        }
+
+        .brand-title {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--ink);
+        }
+
+        .version-badge {
+            font-size: 0.75rem;
+            background: var(--bg-code);
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Layout Structure */
+        aside {
+            width: 280px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+
+        main {
+            margin-left: 280px;
+            margin-top: 60px;
+            padding: 3rem 4rem;
+            max-width: 900px;
+            flex: 1;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .sidebar-section-title:first-child {
+            margin-top: 0;
+        }
+
+        aside ul {
+            list-style: none;
+        }
+
+        aside li {
+            margin-bottom: 0.4rem;
+        }
+
+        aside a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        aside a:hover, aside a.active {
+            color: var(--primary);
+            background: rgba(255, 90, 54, 0.08);
+        }
+
+        /* Documentation Typography & Content */
+        h1, h2, h3 {
+            font-family: 'Urbanist', sans-serif;
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        ul, ol {
+            margin-bottom: 1.2rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        strong {
+            color: var(--ink);
+        }
+
+        /* Lead Paragraph */
+        .lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-sidebar);
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        /* Code & Preformatted Blocks */
+        code {
+            font-family: monospace;
+            background: var(--bg-code);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: #d63384;
+        }
+
+        pre {
+            background: var(--bg-code);
+            padding: 1.25rem;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: var(--ink);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            aside {
+                display: none;
+            }
+            main {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Header -->
+    <header>
+        <a href="#" class="brand-logo">
+            <div class="logo-box">B</div>
+            <span class="brand-title">Brigade Kanban Docs</span>
+        </a>
+        <span class="version-badge">v1.0.0</span>
+    </header>
+
+    <!-- Sidebar Navigation Menu -->
+    <aside>
+        <div class="sidebar-section-title">Getting Started</div>
+        <ul>
+            <li><a href="#install" class="active">Install</a></li>
+        </ul>
+
+        <div class="sidebar-section-title">Core Features</div>
+        <ul>
+            <li><a href="#boards">Boards</a></li>
+            <li><a href="#working-on-a-board">Working on a Board</a></li>
+            <li><a href="#card-details">Card Details</a></li>
+            <li><a href="#columns">Columns</a></li>
+            <li><a href="#my-tasks">My Tasks</a></li>
+        </ul>
+
+        <div class="sidebar-section-title">Administration</div>
+        <ul>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#for-developers">For Developers</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+        <h1>Brigade Kanban Board: User Guide</h1>
+        <p class="lead">Kanban boards inside WordPress. Every change (dragging a card, saving details, adding a column) is saved instantly, without reloading the page.</p>
+
+        <section id="install">
+            <h2>Install</h2>
+            <ol>
+                <li><strong>Plugins → Add New → Upload Plugin</strong>, choose <code>brigade-kanban-board.zip</code>, and activate.</li>
+                <li>Open <strong>Kanban</strong> in the admin menu. A first board with three tip cards is ready.</li>
+                <li>Go to <strong>Kanban → Settings</strong> and tick the roles that may use the boards. Administrators and Editors can by default.</li>
+            </ol>
+        </section>
+
+        <section id="boards">
+            <h2>Boards</h2>
+            <ul>
+                <li><strong>Boards</strong> shows each board with its colour, open and done counts, overdue cards and a progress bar.</li>
+                <li><strong>New board:</strong> give it a name, pick a column set and a colour.</li>
+            </ul>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column set</th>
+                        <th>Columns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>To do · In progress · Done</td>
+                        <td>To do, In progress, Done</td>
+                    </tr>
+                    <tr>
+                        <td>Software sprint</td>
+                        <td>Backlog, To do, In progress, Review, Done</td>
+                    </tr>
+                    <tr>
+                        <td>Content calendar</td>
+                        <td>Ideas, Writing, Editing, Scheduled, Published</td>
+                    </tr>
+                    <tr>
+                        <td>Client projects</td>
+                        <td>Leads, Proposal sent, In progress, Waiting on client, Delivered</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>×</strong> on a board deletes it with all its cards (you're asked first). Only the board's creator or an administrator can do this.</p>
+        </section>
+
+        <section id="working-on-a-board">
+            <h2>Working on a board</h2>
+            <ul>
+                <li><strong>Add a card:</strong> type in "Card title, then Enter" at the bottom of a column. Shift+Enter adds a new line.</li>
+                <li><strong>Move a card:</strong> drag it to another column or up and down. Or open it and choose <strong>Move to</strong>, which works with a keyboard and on phones.</li>
+                <li><strong>Rename the board / change colour:</strong> click the name at the top and type, then press Enter. Use the colour square for the colour.</li>
+                <li><strong>Filters:</strong> search (titles, descriptions, labels), assignee (or "Unassigned") and priority.</li>
+            </ul>
+
+            <h3 id="card-details">Card details</h3>
+            <p>Click a card to open it:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Title, Description</td>
+                        <td>Plain text, with line breaks kept</td>
+                    </tr>
+                    <tr>
+                        <td>Assignee</td>
+                        <td>Anyone with an allowed role. They get an email (can be turned off).</td>
+                    </tr>
+                    <tr>
+                        <td>Due date</td>
+                        <td>Red on the card when overdue, amber on the day it's due (not in "done" columns)</td>
+                    </tr>
+                    <tr>
+                        <td>Priority</td>
+                        <td>Low, Normal, High, Urgent. Normal isn't shown on the card, to keep it clean.</td>
+                    </tr>
+                    <tr>
+                        <td>Labels</td>
+                        <td>Comma-separated, up to 8</td>
+                    </tr>
+                    <tr>
+                        <td>Checklist</td>
+                        <td>Type and press Enter. Ticks save immediately. The card shows progress, e.g. 2/3.</td>
+                    </tr>
+                    <tr>
+                        <td>Comments</td>
+                        <td>Post with the button (or Ctrl/⌘+Enter). The assignee and the card's creator get an email.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Click <strong>Save card</strong> for the title, description, assignee, date, priority, labels and Move to. The checklist and comments save on their own. <strong>Delete card</strong> removes the card and its comments.</p>
+            <p>Each open card has its own address (<code>…&tab=board&board=7&card=23</code>). Share it, and it opens that card.</p>
+
+            <h3 id="columns">Columns</h3>
+            <p>Click <strong>⋯</strong> on a column:</p>
+            <ul>
+                <li><strong>Rename</strong></li>
+                <li><strong>Card limit:</strong> for example 3. The count turns red when the column holds more.</li>
+                <li><strong>Cards here count as done:</strong> done cards don't show as overdue and count toward the board's progress. The last column of a new board is already set this way.</li>
+                <li><strong>← →</strong> move the column.</li>
+                <li><strong>Delete column:</strong> only empty columns can be deleted.</li>
+            </ul>
+            <p><strong>Add column</strong> is at the far right of the board.</p>
+        </section>
+
+        <section id="my-tasks">
+            <h2>My Tasks</h2>
+            <p>Everything assigned to you that isn't done yet, across all boards, sorted by due date and then priority. Click a task to open it on its board.</p>
+            <p>The <strong>My tasks</strong> widget on the WordPress dashboard shows your next six (turn it off in Settings).</p>
+        </section>
+
+        <section id="settings">
+            <h2>Settings (administrators only)</h2>
+            <ul>
+                <li><strong>Who can use the boards:</strong> roles. Everyone with these roles sees every board and can be assigned cards.</li>
+                <li><strong>Email alerts:</strong> on assignment, on new comments.</li>
+                <li><strong>Dashboard widget</strong></li>
+                <li><strong>Uninstall:</strong> tick to delete all boards, cards and settings when the plugin is deleted.</li>
+            </ul>
+        </section>
+
+        <section id="troubleshooting">
+            <h2>Troubleshooting</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A person isn't in the Assignee list</td>
+                        <td>Add their role in Settings.</td>
+                    </tr>
+                    <tr>
+                        <td>Emails don't arrive</td>
+                        <td>Set up an SMTP plugin. WordPress's default mail is often blocked.</td>
+                    </tr>
+                    <tr>
+                        <td>"Move or delete the cards in this column first"</td>
+                        <td>Columns with cards can't be deleted, so no work is lost by accident.</td>
+                    </tr>
+                    <tr>
+                        <td>Dragging doesn't work on a phone</td>
+                        <td>Open the card and use <strong>Move to</strong>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="for-developers">
+            <h2>For developers</h2>
+            <pre><code>// Only let users with the 'manage_projects' capability use the boards:
+add_filter( 'bkb_user_can_use', function ( $allowed, $user ) {
+    return user_can( $user, 'manage_projects' );
+}, 10, 2 );</code></pre>
+        </section>
+    </main>
+
+</body>
+</html>
